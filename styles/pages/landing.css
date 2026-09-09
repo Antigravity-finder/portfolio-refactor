@@ -96,7 +96,8 @@
 .bottom-gif img {
   user-select: none;
   margin-bottom: 0;
-  mix-blend-mode: multiply;
+  mix-blend-mode: normal;
+  filter: invert(1) brightness(1.2) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
   background: transparent;
   width: auto;
   height: clamp(250px, 40vh, 550px);

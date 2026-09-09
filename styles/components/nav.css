@@ -26,36 +26,36 @@ nav ul {
 }
 
 .logo-img {
-  height: clamp(38px, 9vw, 48px);
+  height: clamp(40px, 9vw, 56px);
   width: auto;
   display: block;
   transition: transform var(--duration-medium) var(--ease-logo-hover),
               filter var(--duration-medium) var(--ease-default);
-  filter: drop-shadow(0 0 5px rgba(143, 29, 50, 0.3));
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.45))
+          drop-shadow(0 0 2px rgba(255, 255, 255, 0.9));
+  will-change: transform;
 }
 
 .logo-wordmark {
-  color: var(--color-primary);
+  color: #ffffff;
   font-family: var(--font-secondary);
   font-size: clamp(1.6rem, 4vw, 2.25rem);
   font-weight: 800;
   letter-spacing: 0.12em;
   line-height: 1;
   display: inline-block;
-  animation: logo-bob 1.5s var(--ease-in-out) infinite;
+  transition: transform var(--duration-medium) var(--ease-logo-hover),
+              filter var(--duration-medium) var(--ease-default);
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.45))
+          drop-shadow(0 0 2px rgba(255, 255, 255, 0.8));
   transform-origin: center bottom;
+  will-change: transform;
 }
 
-@keyframes logo-bob {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50% { transform: translateY(-5px) rotate(2deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .logo-wordmark { animation: none; }
-}
-
-.logo-img:hover {
+.logo a:hover .logo-img,
+.logo-img:hover,
+.logo a:hover .logo-wordmark,
+.logo-wordmark:hover {
   transform: var(--transform-scale-hover);
 }
 
