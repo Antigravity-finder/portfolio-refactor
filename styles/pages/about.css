@@ -57,14 +57,23 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   background-position: center;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   border-radius: 50%;
 }
 
+/* Reset any inherited filters — the doodle gif should show its own colors */
+.doodle-image {
+  filter: none;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
 .real-photo {
   transform: rotateY(180deg);
+  filter: none;
 }
 
 .about-text-stack {
