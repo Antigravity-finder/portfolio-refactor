@@ -3,18 +3,21 @@
   top: 0;
   right: 0;
   height: 100dvh;
-  width: 250px;
+  width: 260px;
   z-index: var(--z-sidebar);
   background-color: var(--color-white);
-  box-shadow: -10px 0 10px var(--color-shadow-light);
+  box-shadow: -12px 0 40px rgba(9, 1, 4, 0.5);
   display: flex;
   flex-direction: column;
-  padding: 6rem 1rem 2rem 1rem;
+  padding: 6rem 1.25rem 2rem;
   gap: var(--gap-medium);
   transform: translateX(100%);
-  transition: transform var(--duration-medium) var(--ease-default), visibility var(--duration-medium);
+  transition:
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.5s;
   visibility: hidden;
   justify-content: flex-start;
+  border-left: 1px solid rgba(255, 247, 244, 0.08);
 }
 
 .sidebar.active {
@@ -26,10 +29,14 @@
 .sidebar-overlay {
   position: fixed;
   inset: 0;
-  background-color: var(--color-overlay-dark);
+  background-color: rgba(9, 1, 4, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   z-index: var(--z-overlay);
   opacity: 0;
-  transition: opacity var(--duration-medium) var(--ease-default);
+  transition:
+    opacity 0.45s var(--ease-fluid),
+    backdrop-filter 0.45s var(--ease-fluid);
   pointer-events: none;
 }
 
@@ -91,13 +98,17 @@
   background: var(--color-primary);
   border-radius: var(--radius-pill);
   z-index: var(--z-base);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--duration-smooth) var(--ease-smooth);
+  transform: scaleX(0) scaleY(0.7);
+  transform-origin: center left;
+  transition:
+    transform 0.45s var(--ease-spring),
+    opacity 0.2s ease;
+  opacity: 0.9;
 }
 
 .sidebar li:hover::before {
-  transform: scaleX(1);
+  transform: scaleX(1) scaleY(1);
+  opacity: 1;
 }
 
 .sidebar a {

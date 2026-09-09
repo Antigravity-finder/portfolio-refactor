@@ -246,20 +246,29 @@ details.is-open > .project-section::after {
   border-radius: var(--radius-medium);
   box-shadow: var(--shadow-card);
   opacity: 0;
-  transform: translateY(28px);
-  transition: box-shadow var(--duration-medium) var(--ease-default);
+  transform: translateY(32px) scale(0.97);
+  filter: blur(4px);
+  transition:
+    opacity 0.6s var(--ease-fluid),
+    transform 0.6s var(--ease-spring),
+    filter 0.5s var(--ease-out),
+    box-shadow 0.4s var(--ease-default);
+  will-change: transform, opacity, filter;
 }
 
 .gallery-item.item-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  filter: blur(0);
 }
 
 .gallery-item:hover {
-  transform: var(--transform-scale-hover-small);
-  box-shadow: var(--shadow-card-hover);
+  transform: scale(1.04);
+  box-shadow:
+    0 16px 40px rgba(187, 48, 75, 0.3),
+    0 4px 12px rgba(9, 1, 4, 0.4);
   transition:
-    transform var(--duration-fast) var(--ease-bouncy),
+    transform var(--duration-medium) var(--ease-bouncy),
     box-shadow var(--duration-medium) var(--ease-default);
 }
 
@@ -267,14 +276,27 @@ details.is-open > .project-section::after {
   width: 100%;
   height: auto;
   display: block;
+  transition: transform 0.65s var(--ease-fluid), filter 0.5s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.08);
+  filter: saturate(1.15);
 }
 
 .gallery-overlay {
   position: absolute;
   inset: 0;
-  background: var(--color-shadow-light);
+  background: linear-gradient(
+    to top,
+    rgba(9, 1, 4, 0.85) 0%,
+    rgba(9, 1, 4, 0.4) 40%,
+    transparent 70%
+  );
   opacity: 0;
-  transition: opacity var(--duration-medium) var(--ease-default);
+  transition: opacity 0.4s var(--ease-fluid);
+  display: flex;
+  align-items: flex-end;
 }
 
 .gallery-item:hover .gallery-overlay {
@@ -286,8 +308,15 @@ details.is-open > .project-section::after {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1rem;
+  padding: 1.25rem 1rem;
   color: var(--color-white);
+  transform: translateY(8px);
+  transition: transform 0.4s var(--ease-spring);
+  z-index: 2;
+}
+
+.gallery-item:hover .gallery-info {
+  transform: translateY(0);
 }
 
 .gallery-info h4 {

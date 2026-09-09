@@ -69,7 +69,18 @@
   opacity: 0;
   margin-left: 0.25ch;
   will-change: transform, opacity;
-  transition: transform 0.7s cubic-bezier(.2, 1.2, .6, 1), opacity 0.5s ease;
+  transition:
+    transform 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.35),
+    opacity 0.6s ease,
+    filter 0.5s ease;
+  filter: blur(8px);
+  transform: translateY(20px) scale(0.88);
+}
+
+/* When JS sets opacity=1, also remove blur and transform */
+#scroll-title[style*="opacity: 1"],
+#scroll-title[style*="opacity:1"] {
+  filter: blur(0);
 }
 
 /*  Bottom GIF (centered at bottom, fades in with spring bounce)  */
@@ -90,19 +101,26 @@
   will-change: transform, opacity;
   overflow: hidden;
   height: auto;
-  transition: transform 1.2s cubic-bezier(.4, 1.25, .6, 1), opacity 0.6s var(--ease-fluid);
+  transition:
+    transform 1.4s cubic-bezier(0.22, 1.35, 0.45, 1),
+    opacity 0.8s var(--ease-fluid);
 }
 
 .bottom-gif img {
   user-select: none;
   margin-bottom: 0;
   mix-blend-mode: normal;
-  filter: invert(1) brightness(1.2) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+  filter:
+    invert(1)
+    brightness(1.2)
+    drop-shadow(0 2px 12px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 -1px 6px rgba(187, 48, 75, 0.2));
   background: transparent;
   width: auto;
   height: clamp(220px, 38vh, 520px);
   display: block;
   margin: 0 auto;
+  transition: filter 0.6s ease;
 }
 
 /*  Scroll-down indicator  */
@@ -160,23 +178,24 @@
   font-size: clamp(0.85rem, 1vw + 0.4rem, 1.15rem);
   font-weight: 600;
   font-family: var(--font-primary);
-  border: var(--border-width-thick) dashed rgba(255, 247, 244, 0.35);
-  background: rgba(33, 10, 17, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  border: var(--border-width-thick) dashed rgba(187, 48, 75, 0.4);
+  background: rgba(33, 10, 17, 0.88);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
   border-radius: var(--radius-pill);
-  padding: 0.75rem 1.5rem;
+  padding: 0.9rem 1.75rem;
   z-index: var(--z-interactive);
   cursor: grab;
   pointer-events: none;
   will-change: opacity, transform;
   opacity: 0;
-  transform: translateY(20px) scale(0.95);
+  transform: translateY(28px) scale(0.92);
   transition:
-    opacity 0.6s var(--ease-fluid),
-    transform 0.6s var(--ease-spring),
-    border-color 0.35s ease,
-    box-shadow 0.4s ease;
+    opacity 0.7s var(--ease-fluid),
+    transform 0.7s var(--ease-spring),
+    border-color 0.4s ease,
+    box-shadow 0.45s ease;
+  box-shadow: 0 8px 32px rgba(9, 1, 4, 0.5);
 }
 
 .categorySelect.visible,
@@ -207,11 +226,13 @@
 }
 
 .categorySelect span[draggable="true"]:hover {
-  transform: translateY(-5px) scale(1.06);
+  transform: translateY(-6px) scale(1.08);
   border-color: var(--color-primary);
-  background: rgba(187, 48, 75, 0.32);
-  box-shadow: 0 8px 24px rgba(187, 48, 75, 0.45);
-  animation: wave 2s ease-in-out infinite, shake 0.3s ease-in-out infinite;
+  background: rgba(187, 48, 75, 0.38);
+  box-shadow:
+    0 10px 28px rgba(187, 48, 75, 0.5),
+    0 2px 8px rgba(9, 1, 4, 0.4);
+  animation: wave 2s ease-in-out infinite, shake 0.35s ease-in-out infinite;
 }
 
 .categorySelect span:nth-child(1) {
@@ -257,22 +278,26 @@
 
 #category-drop-zone.scrolled {
   visibility: visible;
+  display: inline-flex;
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0) scale(1);
-  animation: dropzone-pulse 2.5s ease-in-out infinite alternate;
+  animation: dropzone-pulse 2s ease-in-out infinite alternate;
 }
 
 @keyframes dropzone-pulse {
-  0% { box-shadow: 0 4px 15px rgba(187, 48, 75, 0.15); }
-  100% { box-shadow: 0 4px 28px rgba(187, 48, 75, 0.5); }
+  0%   { box-shadow: 0 4px 15px rgba(187, 48, 75, 0.2), inset 0 0 0 0 rgba(187, 48, 75, 0); }
+  100% { box-shadow: 0 4px 36px rgba(187, 48, 75, 0.65), inset 0 0 12px rgba(187, 48, 75, 0.08); }
 }
 
 #category-drop-zone.drag-over {
-  background: rgba(187, 48, 75, 0.35);
+  background: rgba(187, 48, 75, 0.42);
   border-color: var(--color-black);
-  transform: scale(1.05);
-  box-shadow: 0 0 35px rgba(187, 48, 75, 0.8);
+  transform: scale(1.07);
+  box-shadow:
+    0 0 40px rgba(187, 48, 75, 0.9),
+    inset 0 0 20px rgba(187, 48, 75, 0.15);
+  transition: all 0.15s var(--ease-spring);
 }
 
 .placeholder-text {

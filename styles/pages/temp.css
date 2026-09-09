@@ -21,11 +21,24 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--color-primary);
-  background: rgba(187, 48, 75, 0.12);
-  border: 1px solid rgba(187, 48, 75, 0.3);
-  padding: 0.35rem 1rem;
+  background: linear-gradient(
+    90deg,
+    rgba(187, 48, 75, 0.12) 0%,
+    rgba(187, 48, 75, 0.22) 40%,
+    rgba(187, 48, 75, 0.12) 100%
+  );
+  background-size: 200% auto;
+  border: 1px solid rgba(187, 48, 75, 0.35);
+  padding: 0.35rem 1.1rem;
   border-radius: var(--radius-pill);
   margin-bottom: 1.25rem;
+  animation: shimmer 3s linear infinite;
+  transition: box-shadow 0.4s ease, transform 0.3s var(--ease-spring);
+}
+
+.overview-badge:hover {
+  box-shadow: 0 0 18px rgba(187, 48, 75, 0.4);
+  transform: scale(1.05);
 }
 
 .overview-title {
@@ -62,15 +75,63 @@
   display: flex;
   flex-direction: column;
   box-shadow: 0 12px 36px rgba(9, 1, 4, 0.35);
-  transition: transform 0.45s var(--ease-spring), border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+  transition:
+    transform 0.5s var(--ease-spring),
+    border-color 0.4s ease,
+    box-shadow 0.4s ease,
+    background 0.4s ease;
   will-change: transform;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer sweep on hover */
+.overview-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 25%,
+    rgba(255, 247, 244, 0.07) 50%,
+    transparent 75%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.7s var(--ease-fluid);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.overview-card:hover::before {
+  transform: translateX(100%);
+}
+
+/* Left-edge accent line that grows on hover */
+.overview-card::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  width: 3px;
+  height: 0%;
+  background: linear-gradient(180deg, transparent, var(--color-primary), transparent);
+  border-radius: 0 2px 2px 0;
+  transition: height 0.5s var(--ease-spring);
+  z-index: 2;
+}
+
+.overview-card:hover::after {
+  height: 60%;
+  top: 20%;
 }
 
 .overview-card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-10px) scale(1.02);
   border-color: var(--color-primary);
-  background: rgba(58, 16, 26, 0.75);
-  box-shadow: 0 20px 48px rgba(187, 48, 75, 0.3);
+  background: rgba(58, 16, 26, 0.82);
+  box-shadow:
+    0 24px 56px rgba(187, 48, 75, 0.32),
+    0 4px 16px rgba(9, 1, 4, 0.4);
 }
 
 .overview-icon {
@@ -84,12 +145,18 @@
   justify-content: center;
   color: #ffffff;
   margin-bottom: 1.5rem;
-  transition: transform 0.4s var(--ease-spring), background 0.3s ease;
+  transition:
+    transform 0.45s var(--ease-spring),
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+  position: relative;
+  z-index: 2;
 }
 
 .overview-card:hover .overview-icon {
-  transform: scale(1.12) rotate(4deg);
+  transform: scale(1.18) rotate(6deg);
   background: var(--color-primary);
+  box-shadow: 0 8px 24px rgba(187, 48, 75, 0.5);
 }
 
 .overview-card-title {
@@ -125,11 +192,18 @@
   background: rgba(255, 247, 244, 0.08);
   border: 1px solid rgba(255, 247, 244, 0.18);
   border-radius: var(--radius-pill);
-  padding: 0.25rem 0.75rem;
-  transition: all 0.25s ease;
+  padding: 0.28rem 0.8rem;
+  transition:
+    border-color 0.3s var(--ease-spring),
+    background 0.3s ease,
+    transform 0.25s var(--ease-spring),
+    color 0.25s ease;
 }
 
+.tech-tag:hover,
 .overview-card:hover .tech-tag {
-  border-color: rgba(187, 48, 75, 0.5);
-  background: rgba(187, 48, 75, 0.18);
+  border-color: rgba(187, 48, 75, 0.6);
+  background: rgba(187, 48, 75, 0.2);
+  transform: translateY(-2px);
+  color: #ffffff;
 }

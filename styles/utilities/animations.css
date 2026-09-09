@@ -1,112 +1,234 @@
-/* Page-load fade-in for non-landing pages */
+/* ================================================================
+   ANIMATIONS.CSS — Premium animation library for the portfolio
+   ================================================================ */
+
+/* ===== PAGE TRANSITION KEYFRAMES ===== */
 @keyframes pageFadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
 }
 
 body:not(:has(.landing)) main,
 body:not(:has(.landing)) .page-header {
-  animation: pageFadeIn 0.45s var(--ease-out) both;
+  animation: pageFadeIn 0.65s var(--ease-out) both;
 }
 
 @keyframes cardSlideIn {
-  from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
+/* ===== WAVE & SHAKE ===== */
 @keyframes wave {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-0.33rem);
-  }
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-0.4rem); }
 }
 
 @keyframes shake {
-  0% {
-    transform: rotate(3deg);
-  }
+  0%   { transform: rotate(3deg) scale(1.04); }
+  50%  { transform: rotate(-3deg) scale(1.04); }
+  100% { transform: rotate(3deg) scale(1.04); }
+}
 
-  50% {
-    transform: rotate(-3deg);
-  }
+/* ===== BOUNCE ARROW ===== */
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(7px); }
+}
 
-  100% {
-    transform: rotate(3deg);
+/* ===== PREMIUM SHIMMER (for highlights, badges, tags) ===== */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ===== FLOAT GENTLY (for GIF / illustration) ===== */
+@keyframes floatGently {
+  0%, 100% { transform: translateY(0px); }
+  40%       { transform: translateY(-10px); }
+  70%       { transform: translateY(-5px); }
+}
+
+/* ===== PULSE RING (attention-grabbing glow) ===== */
+@keyframes pulseRing {
+  0%   { transform: scale(1);    box-shadow: 0 0 0 0   rgba(187, 48, 75, 0.55); }
+  60%  { transform: scale(1.04); box-shadow: 0 0 0 14px rgba(187, 48, 75, 0); }
+  100% { transform: scale(1);    box-shadow: 0 0 0 0   rgba(187, 48, 75, 0); }
+}
+
+/* ===== TEXT SHIMMER (animated gradient text) ===== */
+@keyframes textShimmer {
+  0%   { background-position: 0%   center; }
+  100% { background-position: 200% center; }
+}
+
+/* ===== SLIDE IN FROM BOTTOM (form messages) ===== */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-12px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+/* ===== ERROR SLIDE ===== */
+@keyframes errorSlide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== SPIN (button spinner) ===== */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== DROPZONE PULSE ===== */
+@keyframes dropzone-pulse {
+  0%   { box-shadow: 0 4px 15px rgba(187, 48, 75, 0.15); }
+  100% { box-shadow: 0 4px 32px rgba(187, 48, 75, 0.55); }
+}
+
+/* ===== BLINKING CURSOR ===== */
+@keyframes blinkingCursor {
+  from { border-right-color: var(--color-black); }
+  to   { border-right-color: transparent; }
+}
+
+/* ===== NAV ENTRY (links slide down on page load) ===== */
+@keyframes navLinkEntry {
+  from { opacity: 0; transform: translateY(-10px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ===== CONTENT ENTRY (staggered for overview cards) ===== */
+@keyframes contentEntry {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.95);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
   }
 }
 
+/* ===== FOOTER TITLE WAVE ===== */
+@keyframes footerPulse {
+  0%, 100% { letter-spacing: 0em; }
+  50%       { letter-spacing: 0.02em; }
+}
 
-/*  Wave-text utility 
-   Wraps each character in a span and assigns staggered animation delays. */
+/* ==================================================================
+   WAVE-TEXT UTILITY
+   Wraps each character in a span and assigns staggered delays.
+   ================================================================== */
 .wave-text span {
   display: inline-block;
   font-size: 1.5rem;
-  animation: wave 2s ease-in-out infinite;
+  animation: wave 2.2s ease-in-out infinite;
 }
 
-.wave-text span:nth-child(2) { animation-delay: 0s; }
-.wave-text span:nth-child(3) { animation-delay: 0.07s; }
-.wave-text span:nth-child(4) { animation-delay: 0.14s; }
-.wave-text span:nth-child(5) { animation-delay: 0.21s; }
-.wave-text span:nth-child(6) { animation-delay: 0.28s; }
-.wave-text span:nth-child(8) { animation-delay: 0.35s; }
-.wave-text span:nth-child(9) { animation-delay: 0.42s; }
+.wave-text span:nth-child(2)  { animation-delay: 0s; }
+.wave-text span:nth-child(3)  { animation-delay: 0.07s; }
+.wave-text span:nth-child(4)  { animation-delay: 0.14s; }
+.wave-text span:nth-child(5)  { animation-delay: 0.21s; }
+.wave-text span:nth-child(6)  { animation-delay: 0.28s; }
+.wave-text span:nth-child(8)  { animation-delay: 0.35s; }
+.wave-text span:nth-child(9)  { animation-delay: 0.42s; }
 .wave-text span:nth-child(10) { animation-delay: 0.49s; }
 .wave-text span:nth-child(11) { animation-delay: 0.56s; }
 .wave-text span:nth-child(12) { animation-delay: 0.63s; }
 
-/*  Category-select wave delays  */
-.categorySelect span:nth-child(1) {
-  animation-delay: 0s, 0s;
-}
+/* Category-select wave delays */
+.categorySelect span:nth-child(1) { animation-delay: 0s,     0s; }
+.categorySelect span:nth-child(2) { animation-delay: calc(var(--wave-delay-base) * 1), 0s; }
+.categorySelect span:nth-child(3) { animation-delay: calc(var(--wave-delay-base) * 2), 0s; }
+.categorySelect span:nth-child(4) { animation-delay: calc(var(--wave-delay-base) * 3), 0s; }
 
-.categorySelect span:nth-child(2) {
-  animation-delay: calc(var(--wave-delay-base) * 1), 0s;
-}
-
-.categorySelect span:nth-child(3) {
-  animation-delay: calc(var(--wave-delay-base) * 2), 0s;
-}
-
-.categorySelect span:nth-child(4) {
-  animation-delay: calc(var(--wave-delay-base) * 3), 0s;
-}
-
-/* ===== UNIVERSAL SCROLL-REVEAL SYSTEM ===== */
+/* ==================================================================
+   UNIVERSAL SCROLL-REVEAL SYSTEM
+   Elements with .scroll-reveal animate in when they enter the viewport.
+   ================================================================== */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(36px) scale(0.96);
+  transform: translateY(40px) scale(0.96);
+  filter: blur(6px);
   transition:
-    opacity 0.75s var(--ease-fluid),
-    transform 0.75s var(--ease-spring);
-  will-change: opacity, transform;
+    opacity 0.8s var(--ease-fluid),
+    transform 0.8s var(--ease-spring),
+    filter 0.6s var(--ease-out);
+  will-change: opacity, transform, filter;
 }
 
 .scroll-reveal.is-revealed {
   opacity: 1;
   transform: translateY(0) scale(1);
+  filter: blur(0px);
 }
 
-.overview-grid .scroll-reveal:nth-child(1) { transition-delay: 0.08s; }
-.overview-grid .scroll-reveal:nth-child(2) { transition-delay: 0.22s; }
-.overview-grid .scroll-reveal:nth-child(3) { transition-delay: 0.36s; }
+/* Staggered delays for overview grid */
+.overview-grid .scroll-reveal:nth-child(1) { transition-delay: 0.05s; }
+.overview-grid .scroll-reveal:nth-child(2) { transition-delay: 0.20s; }
+.overview-grid .scroll-reveal:nth-child(3) { transition-delay: 0.35s; }
 
-/* Floating micro-interactions */
-@keyframes floatGently {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
+/* The overview header slides in from a slightly different axis */
+.overview-header.scroll-reveal {
+  transform: translateY(24px) scale(0.98);
 }
 
+/* Nav links: subtle staggered entry on page load */
+.nav-link:nth-child(1) { animation: navLinkEntry 0.5s var(--ease-spring) 0.1s both; }
+.nav-link:nth-child(2) { animation: navLinkEntry 0.5s var(--ease-spring) 0.2s both; }
+.nav-link:nth-child(3) { animation: navLinkEntry 0.5s var(--ease-spring) 0.3s both; }
+
+/* ==================================================================
+   HOVER MICRO-INTERACTIONS
+   ================================================================== */
+
+/* Shimmer badge — applied to .overview-badge */
+.overview-badge {
+  background-size: 200% auto;
+  transition: background-position 0.5s ease, box-shadow 0.4s ease;
+}
+
+/* Pulse CTA — footer button draws eye on load */
+.footer-cta-button {
+  animation: pulseRing 3s ease-in-out 1.5s 3;
+}
+
+/* Footer title subtle breath */
+.footer-title {
+  animation: footerPulse 4s ease-in-out infinite;
+}
+
+/* ==================================================================
+   REDUCED MOTION OVERRIDES
+   ================================================================== */
 @media (prefers-reduced-motion: reduce) {
   .scroll-reveal {
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
     transition: none !important;
+  }
+
+  .footer-cta-button,
+  .footer-title,
+  .wave-text span,
+  .nav-link {
+    animation: none !important;
   }
 }
