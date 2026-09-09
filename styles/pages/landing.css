@@ -12,7 +12,7 @@
 }
 
 .job-role-container {
-  position: fixed;
+  position: absolute;
   z-index: var(--z-interactive);
   top: calc(45vh - 3.5rem);
   left: 50%;
@@ -22,12 +22,6 @@
   gap: var(--gap-small);
   white-space: nowrap;
   transition: opacity 0.5s var(--ease-fluid), transform 0.5s var(--ease-spring);
-}
-
-.job-role-container.scrolled-past {
-  opacity: 0;
-  transform: translateX(-50%) translateY(-35px);
-  pointer-events: none;
 }
 
 /* ----- Typewriter animation ----- */
@@ -85,18 +79,19 @@
 /*  Bottom GIF (fixed, fades in on scroll)  */
 .bottom-gif {
   user-select: none;
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  left: 0%;
+  left: 50%;
   transform: translateX(-50%) translateY(100px);
   display: flex;
   justify-content: center;
   align-items: flex-end;
   pointer-events: none;
-  z-index: var(--z-interactive);
+  z-index: var(--z-base);
   opacity: 0;
   will-change: transform, opacity;
   width: 100vw;
+  max-width: 100%;
   overflow: hidden;
   height: auto;
   transition: transform 0.8s var(--ease-fluid), opacity 0.6s var(--ease-fluid);
@@ -116,7 +111,7 @@
 
 /*  Scroll-down indicator  */
 .scroll-down-text {
-  position: fixed;
+  position: absolute;
   top: 66vh;
   right: 2vw;
   display: flex;
@@ -155,8 +150,8 @@
 
 /*  Drag-and-drop category nav  */
 .categorySelect {
-  position: fixed;
-  top: calc(51vh + 1rem);
+  position: absolute;
+  top: calc(51vh + 1.2rem);
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -195,12 +190,6 @@
   transform: translateY(0) scale(1);
   border-color: var(--color-primary);
   box-shadow: 0 10px 32px rgba(187, 48, 75, 0.3);
-}
-
-.categorySelect.scrolled-past {
-  opacity: 0 !important;
-  transform: translateY(-35px) scale(0.95) !important;
-  pointer-events: none !important;
 }
 
 .categorySelect span[draggable="true"] {

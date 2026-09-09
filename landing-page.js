@@ -147,6 +147,22 @@ window.addEventListener("DOMContentLoaded", (event) => { //Inital Conditions for
             item.addEventListener('dragstart', handleDragStart);
             item.addEventListener('dragend', handleDragEnd);
             initialOrder.push(item.id);
+
+            // Direct click navigation fallback (for tap / mobile / quick click)
+            item.addEventListener('click', () => {
+                const redirectUrl = pageRedirects[item.id];
+                if (redirectUrl) {
+                    if (placeholderElement) {
+                        placeholderElement.textContent = item.id;
+                        updateTypewriterArticle(item.id);
+                    }
+                    item.style.transform = 'scale(0.92)';
+                    document.body.classList.add('fade-out');
+                    setTimeout(() => {
+                        window.location.href = redirectUrl;
+                    }, 400);
+                }
+            });
         });
 
         categorySelectElement.addEventListener('dragover', handleDragOver);
@@ -164,7 +180,8 @@ window.addEventListener('scroll', () => {
     const scrollableElements = [categorySelectElement, categoryDropZoneElement];
 
     if (animationsComplete) {
-        const triggerPoint = 300;
+        // Smooth early trigger so the transition between ALE and Drop Zone is seamless
+        const triggerPoint = 120;
 
         if (scrollY > triggerPoint) {
             if (typewriterElement) {
@@ -192,17 +209,9 @@ window.addEventListener('scroll', () => {
                             getData: () => selectedCategory.id
                         }
                     });
-
-                    if (typeof resetWaveAnimation === 'function') {
-                        resetWaveAnimation(selectedCategory);
-                    }
                 }
             }
         }
-        const jobRoleContainer = document.querySelector('.job-role-container');
-        const isPastHero = scrollY > 600;
-        jobRoleContainer?.classList.toggle('scrolled-past', isPastHero);
-        categorySelectElement?.classList.toggle('scrolled-past', isPastHero);
     }
 
     if (scrollDownTextElement) {
@@ -216,21 +225,16 @@ window.addEventListener('scroll', () => {
     }
 
     if (titleElement && animationsComplete) {
-        const fadeEnd = 240;
+        const fadeEnd = 180;
         const progress = Math.min(scrollY / fadeEnd, 1);
         titleElement.style.opacity = (1 - progress).toString();
         titleElement.style.transform = `translateY(${-progress * 30}px) scale(${1 - progress * 0.08})`;
     }
 
     if (bottomGifElement && animationsComplete) {
-        const sink = Math.min(scrollY * 0.3, 180);
-        bottomGifElement.style.transform = `translateY(${sink}px)`;
-        if (scrollY > 350) {
-            const fade = Math.max(0, 1 - (scrollY - 350) / 300);
-            bottomGifElement.style.opacity = fade.toString();
-        } else {
-            bottomGifElement.style.opacity = '1';
-        }
+        const fadeEnd = 240;
+        const progress = Math.min(scrollY / fadeEnd, 1);
+        bottomGifElement.style.opacity = (1 - progress).toString();
     }
 });
 
