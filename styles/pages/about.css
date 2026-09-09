@@ -64,9 +64,9 @@
   border-radius: 50%;
 }
 
-/* Reset any inherited filters — the doodle gif should show its own colors */
+/* Strip native colors → render as clean white drawing on dark bg */
 .doodle-image {
-  filter: none;
+  filter: brightness(0) invert(1);
   object-fit: contain;
   object-position: center bottom;
 }
