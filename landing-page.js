@@ -71,8 +71,9 @@ async function typewriterAnimation(textToType) {
 // Only run on DOMContentLoaded initalization to reset intro animation (Title, GIF, and Scroll Down Text)
 function setInitialState() {
     if (titleElement) {
-        titleElement.style.transform = 'translateY(200px)';
+        titleElement.style.transform = 'translateY(35px) scale(0.85)';
         titleElement.style.opacity = '0';
+        titleElement.style.display = 'inline-block';
     }
     if (bottomGifElement) {
         bottomGifElement.style.transform = 'translateY(100px)';
@@ -86,13 +87,13 @@ function setInitialState() {
 // Helper function to trigger page animations when typewriter animation is complete
 function triggerPageAnimations() {
     setTimeout(() => {
-        if (titleElement) { //Animate Name title in
-            titleElement.style.transition = 'transform 0.7s cubic-bezier(.2,1.2,.6,1), opacity 0.5s';
-            titleElement.style.transform = 'translateY(0)';
+        if (titleElement) { // Animate Name title in with spring bounce
+            titleElement.style.transition = 'transform 0.7s cubic-bezier(.2,1.2,.6,1), opacity 0.5s ease';
+            titleElement.style.transform = 'translateY(0) scale(1)';
             titleElement.style.opacity = '1';
         }
-        if (bottomGifElement) { //Animate Waving Dude GIF in
-            bottomGifElement.style.transition = 'transform 1.2s cubic-bezier(.4,1.25,.6,1), opacity 0.5s';
+        if (bottomGifElement) { // Animate Waving Dude GIF in
+            bottomGifElement.style.transition = 'transform 1.2s cubic-bezier(.4,1.25,.6,1), opacity 0.6s ease';
             bottomGifElement.style.transform = 'translateY(0)';
             bottomGifElement.style.opacity = '1';
         }
@@ -101,7 +102,7 @@ function triggerPageAnimations() {
                 if (e.propertyName === 'transform') {
                     document.body.classList.remove('no-scroll');
                     if (scrollDownTextElement) {
-                        scrollDownTextElement.style.transition = 'opacity 0.7s';
+                        scrollDownTextElement.style.transition = 'opacity 0.7s ease';
                         scrollDownTextElement.style.opacity = '1';
                     }
                     // Mark the intro as complete
@@ -177,31 +178,45 @@ window.addEventListener('scroll', () => {
     if (!animationsStarted) return;
 
     const scrollY = window.scrollY;
-    const scrollableElements = [categorySelectElement, categoryDropZoneElement];
+    const triggerPoint = 130;
+    const isPastHero = scrollY > triggerPoint;
+    const jobRoleContainer = document.querySelector('.job-role-container');
 
     if (animationsComplete) {
-        // Smooth early trigger so the transition between ALE and Drop Zone is seamless
-        const triggerPoint = 120;
-
-        if (scrollY > triggerPoint) {
-            if (typewriterElement) {
-                typewriterElement.classList.add('scrolled', 'shift-left');
-                if (typewriterElement.textContent === initialText) {
-                    typewriterElement.textContent += " a";
-                }
+        if (isPastHero) {
+            if (typewriterElement && typewriterElement.textContent === initialText) {
+                typewriterElement.textContent = initialText + " a";
             }
-            scrollableElements.forEach(el => el?.classList.add('scrolled'));
-        }
-        else {
+            if (titleElement) {
+                titleElement.style.display = 'none';
+                titleElement.style.opacity = '0';
+            }
+            if (categoryDropZoneElement) {
+                categoryDropZoneElement.classList.add('scrolled');
+            }
+            if (categorySelectElement) {
+                categorySelectElement.classList.add('scrolled');
+            }
+        } else {
             if (typewriterElement) {
                 typewriterElement.textContent = initialText;
-                typewriterElement.classList.remove('scrolled', 'shift-left');
             }
-            scrollableElements.forEach(el => el?.classList.remove('scrolled'));
-
+            if (titleElement) {
+                titleElement.style.display = 'inline-block';
+                const progress = Math.min(scrollY / triggerPoint, 1);
+                titleElement.style.opacity = (1 - progress).toString();
+                titleElement.style.transform = `translateY(${-progress * 15}px) scale(${1 - progress * 0.12})`;
+            }
             if (categoryDropZoneElement) {
+                categoryDropZoneElement.classList.remove('scrolled');
+            }
+            if (categorySelectElement) {
+                categorySelectElement.classList.remove('scrolled');
+            }
+
+            if (categoryDropZoneElement && categorySelectElement) {
                 const selectedCategory = categoryDropZoneElement.querySelector('span[draggable="true"]');
-                if (selectedCategory && categorySelectElement) {
+                if (selectedCategory) {
                     handleReturnDrop({
                         preventDefault: () => { },
                         currentTarget: categorySelectElement,
@@ -212,29 +227,38 @@ window.addEventListener('scroll', () => {
                 }
             }
         }
+
+        // Natural continuous scroll-off for hero elements when moving past 260px into overview
+        const heroScrollOffset = scrollY > 260 ? scrollY - 260 : 0;
+        const heroLift = -heroScrollOffset * 0.85;
+        const heroOpacity = Math.max(0, 1 - heroScrollOffset / 220);
+
+        if (jobRoleContainer) {
+            jobRoleContainer.style.transform = `translateX(-50%) translateY(${heroLift}px)`;
+            jobRoleContainer.style.opacity = heroOpacity.toString();
+            jobRoleContainer.style.pointerEvents = heroOpacity <= 0.05 ? 'none' : 'auto';
+        }
+
+        if (categorySelectElement) {
+            categorySelectElement.style.transform = `translateY(${heroLift}px)`;
+            categorySelectElement.style.opacity = (isPastHero ? heroOpacity : 0).toString();
+            categorySelectElement.style.pointerEvents = (isPastHero && heroOpacity > 0.05) ? 'auto' : 'none';
+        }
     }
 
     if (scrollDownTextElement) {
-        scrollDownTextElement.style.opacity = '0';
-        clearTimeout(scrollFadeTimeout);
-        scrollFadeTimeout = setTimeout(() => {
-            if (window.scrollY < 10 && animationsComplete) {
-                scrollDownTextElement.style.opacity = '1';
-            }
-        }, 900);
-    }
-
-    if (titleElement && animationsComplete) {
-        const fadeEnd = 180;
-        const progress = Math.min(scrollY / fadeEnd, 1);
-        titleElement.style.opacity = (1 - progress).toString();
-        titleElement.style.transform = `translateY(${-progress * 30}px) scale(${1 - progress * 0.08})`;
+        if (scrollY > 15) {
+            scrollDownTextElement.style.opacity = '0';
+        } else if (animationsComplete) {
+            scrollDownTextElement.style.opacity = '1';
+        }
     }
 
     if (bottomGifElement && animationsComplete) {
-        const fadeEnd = 240;
-        const progress = Math.min(scrollY / fadeEnd, 1);
-        bottomGifElement.style.opacity = (1 - progress).toString();
+        const sink = Math.min(scrollY * 0.45, 220);
+        const gifOpacity = Math.max(0, 1 - scrollY / 280);
+        bottomGifElement.style.transform = `translateY(${sink}px)`;
+        bottomGifElement.style.opacity = gifOpacity.toString();
     }
 });
 
