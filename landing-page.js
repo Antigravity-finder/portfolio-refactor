@@ -23,10 +23,13 @@ let scrollFadeTimeout;
 let initialOrder = []; // Var to store order of Categories in the selection bank
 
 const pageRedirects = { //Redirections to different sections for categorySelect
-    "Engineer": "projects.html#engineering-page",
-    "Designer": "projects.html#design-page",
-    "Photographer": "projects.html#photography-page",
-    "Programmer": "projects.html#programming-page"
+    "Web Developer": "projects.html#web-development",
+    "Web-Developer": "projects.html#web-development",
+    "Cybersecurity Student": "projects.html#cybersecurity",
+    "Cybersecurity-Student": "projects.html#cybersecurity",
+    "Cybersecurity": "projects.html#cybersecurity",
+    "Security": "projects.html#cybersecurity",
+    "Programmer": "projects.html#web-development"
 };
 
 

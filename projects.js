@@ -164,6 +164,7 @@ const portraitContainer = document.getElementById('portrait-gallery');
 const portraitShortContainer = document.getElementById('portrait-short-gallery');
 
 function renderGallery() {
+    if (!landscapeContainer || !portraitContainer || !portraitShortContainer) return;
     landscapeContainer.innerHTML = '';
     portraitContainer.innerHTML = '';
     portraitShortContainer.innerHTML = '';
