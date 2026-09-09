@@ -41,6 +41,18 @@ nav ul {
   font-weight: 800;
   letter-spacing: 0.12em;
   line-height: 1;
+  display: inline-block;
+  animation: logo-bob 1.5s var(--ease-in-out) infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes logo-bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-5px) rotate(2deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-wordmark { animation: none; }
 }
 
 .logo-img:hover {
