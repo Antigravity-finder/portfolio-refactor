@@ -31,9 +31,16 @@ nav ul {
   display: block;
   transition: transform var(--duration-medium) var(--ease-logo-hover),
               filter var(--duration-medium) var(--ease-default);
-  filter:
-    drop-shadow(0 0 5px rgba(255, 255, 255, 0.85))
-    drop-shadow(0 0 2px rgba(255, 255, 255, 1))
+  filter: drop-shadow(0 0 5px rgba(143, 29, 50, 0.3));
+}
+
+.logo-wordmark {
+  color: var(--color-primary);
+  font-family: var(--font-secondary);
+  font-size: clamp(1.6rem, 4vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1;
 }
 
 .logo-img:hover {

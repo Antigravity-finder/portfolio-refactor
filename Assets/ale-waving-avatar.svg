@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-labelledby="title desc">
+  <title id="title">Ale saludando</title>
+  <desc id="desc">Caricatura animada de Ale, joven, moreno, de pelo rizado y delgado, saludando.</desc>
+  <style>
+    .wave { animation: wave 1.1s ease-in-out infinite; transform-origin: 446px 348px; }
+    .curl { animation: bounce 1.8s ease-in-out infinite alternate; transform-origin: center; }
+    .curl:nth-child(2n) { animation-delay: -.6s; }
+    .curl:nth-child(3n) { animation-delay: -1.1s; }
+    @keyframes wave { 0%, 100% { transform: rotate(-11deg); } 50% { transform: rotate(16deg); } }
+    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-4px); } }
+    @media (prefers-reduced-motion: reduce) { .wave, .curl { animation: none; } }
+  </style>
+  <rect width="640" height="640" rx="320" fill="#8f1d32"/>
+  <circle cx="320" cy="320" r="282" fill="#fff8f7"/>
+  <path d="M172 620c15-119 72-197 148-197s133 78 148 197" fill="#2b1218"/>
+  <path d="M246 444h148l45 176H201z" fill="#8f1d32"/>
+  <path d="M263 404h114v74c-10 25-94 25-114 0z" fill="#8d563e"/>
+  <path d="M209 273c0-103 47-164 111-164s111 61 111 164v65c0 96-48 151-111 151s-111-55-111-151z" fill="#9d6044"/>
+  <g fill="#2b1218">
+    <circle class="curl" cx="230" cy="211" r="31"/><circle class="curl" cx="263" cy="178" r="37"/>
+    <circle class="curl" cx="307" cy="166" r="40"/><circle class="curl" cx="350" cy="170" r="39"/>
+    <circle class="curl" cx="390" cy="190" r="37"/><circle class="curl" cx="414" cy="225" r="31"/>
+    <circle class="curl" cx="218" cy="248" r="29"/><circle class="curl" cx="425" cy="261" r="28"/>
+    <circle class="curl" cx="246" cy="140" r="25"/><circle class="curl" cx="329" cy="132" r="31"/>
+  </g>
+  <path d="M246 318c13 11 29 11 42 0M353 318c13 11 29 11 42 0" fill="none" stroke="#2b1218" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="270" cy="306" r="7" fill="#2b1218"/><circle cx="371" cy="306" r="7" fill="#2b1218"/>
+  <path d="M291 390c20 15 38 15 58 0" fill="none" stroke="#6b3429" stroke-width="11" stroke-linecap="round"/>
+  <path d="M246 365c17 9 32 9 47 0M348 365c17 9 32 9 47 0" fill="none" stroke="#834936" stroke-width="10" stroke-linecap="round" opacity=".55"/>
+  <g class="wave">
+    <path d="M384 484c26-57 45-103 61-138 9-20 27-27 42-19 15 8 19 26 11 42l-44 90 74-71c14-14 32-10 42 2 10 13 8 31-5 43l-111 108c-29 28-82 5-70-37z" fill="#9d6044"/>
+    <path d="M491 391c-8-11-5-28 7-36 12-8 28-5 36 7l24 36c8 12 5 28-7 36-12 8-28 5-36-7z" fill="#9d6044"/>
+    <path d="M514 371l24 35M531 361l24 35M549 370l21 30" stroke="#6b3429" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <text x="320" y="590" text-anchor="middle" fill="#fff8f7" font-family="Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="12">ALE</text>
+</svg>
