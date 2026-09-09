@@ -112,37 +112,44 @@ document.querySelectorAll('details').forEach(details => {
     });
 });
 
-function triggerCardEntrances(details) {
-    const cards = [...details.querySelectorAll('.project-card')];
-    const galleryItems = [...details.querySelectorAll('.gallery-item')];
-
-    const ENTRANCE_KEYFRAMES = [
-        { opacity: 0, transform: 'translateY(28px)' },
-        { opacity: 1, transform: 'translateY(0)' },
-    ];
-
-    cards.forEach((card, i) => {
-        card.classList.add('card-visible');
-        if (prefersReducedMotion) return;
-        card.animate(ENTRANCE_KEYFRAMES, {
-            duration: 400,
-            delay: (i+1) * 120,
-            easing: 'cubic-bezier(0, 0, 0.2, 1)', // ease-out
-            fill: 'backwards', // hold 'from' state during delay
-        });
+const cardObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const el = entry.target;
+            const parentDetails = el.closest('details');
+            if (!parentDetails || parentDetails.open) {
+                const isCard = el.classList.contains('project-card');
+                el.classList.add(isCard ? 'card-visible' : 'item-visible');
+                if (!prefersReducedMotion) {
+                    el.animate([
+                        { opacity: 0, transform: 'translateY(36px) scale(0.96)' },
+                        { opacity: 1, transform: 'translateY(0) scale(1)' },
+                    ], {
+                        duration: 650,
+                        easing: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                        fill: 'backwards',
+                    });
+                }
+                observer.unobserve(el);
+            }
+        }
     });
+}, {
+    rootMargin: '0px 0px -40px 0px',
+    threshold: 0.12,
+});
 
-    galleryItems.forEach((item, i) => {
-        item.classList.add('item-visible');
-        if (prefersReducedMotion) return;
-        item.animate(ENTRANCE_KEYFRAMES, {
-            duration: 400,
-            delay: (i+1) * 90,
-            easing: 'cubic-bezier(0, 0, 0.2, 1)',
-            fill: 'backwards',
-        });
+function triggerCardEntrances(details) {
+    const elements = details.querySelectorAll('.project-card, .gallery-item');
+    elements.forEach(el => {
+        cardObserver.observe(el);
     });
 }
+
+// Observe cards for scroll entrance
+document.querySelectorAll('.project-card, .gallery-item').forEach(el => {
+    cardObserver.observe(el);
+});
 
 // #region Drag and Drop Hash Navigation
 addEventListener('DOMContentLoaded', () => {

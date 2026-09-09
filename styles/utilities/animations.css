@@ -76,3 +76,37 @@ body:not(:has(.landing)) .page-header {
 .categorySelect span:nth-child(4) {
   animation-delay: calc(var(--wave-delay-base) * 3), 0s;
 }
+
+/* ===== UNIVERSAL SCROLL-REVEAL SYSTEM ===== */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(36px) scale(0.96);
+  transition:
+    opacity 0.75s var(--ease-fluid),
+    transform 0.75s var(--ease-spring);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.overview-grid .scroll-reveal:nth-child(1) { transition-delay: 0.08s; }
+.overview-grid .scroll-reveal:nth-child(2) { transition-delay: 0.22s; }
+.overview-grid .scroll-reveal:nth-child(3) { transition-delay: 0.36s; }
+
+/* Floating micro-interactions */
+@keyframes floatGently {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

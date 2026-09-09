@@ -32,7 +32,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  transition: transform 0.65s var(--ease-smooth);
+  transition: transform 0.8s var(--ease-spring);
   transform-style: preserve-3d;
   display: grid;
   place-items: center;
@@ -81,16 +81,16 @@
   max-width: 600px;
   padding-right: 2rem;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(24px) scale(0.98);
   pointer-events: none;
   transition: opacity 0.35s ease-in, transform 0.35s ease-in;
 }
 
 .text-block.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   pointer-events: auto;
-  transition: opacity 0.5s ease-out 0.15s, transform 0.5s var(--ease-out) 0.15s;
+  transition: opacity 0.6s var(--ease-fluid) 0.12s, transform 0.6s var(--ease-spring) 0.12s;
 }
 
 .text-block h1 {
@@ -121,15 +121,20 @@
   border: var(--border-width-medium) solid var(--color-black);
   padding: 0.75em 1.25em;
   border-radius: var(--radius-pill);
-  transition: transform var(--duration-medium) var(--ease-aggressive),
-    background-color var(--duration-medium) var(--ease-default);
+  transition:
+    transform var(--duration-medium) var(--ease-bouncy),
+    background-color var(--duration-medium) var(--ease-default),
+    border-color 0.3s ease,
+    box-shadow 0.35s ease;
   margin-top: var(--gap-large);
 }
 
 .resume-btn:hover {
   background-color: var(--color-primary);
-  color: var(--color-black);
-  transform: scale(1.05);
+  border-color: var(--color-primary);
+  color: #ffffff;
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 8px 24px rgba(187, 48, 75, 0.45);
 }
 
 @media (max-width: 768px) {
